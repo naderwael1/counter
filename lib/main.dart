@@ -33,37 +33,41 @@ class MyHomePage extends StatelessWidget {
     //wrap scaffold with BlocBUilder that use to notify UI my Bloc
     //exitst return scaffold from widget build ==> wrap scafoold by blocBuilder and give it parametar
     return BlocProvider(
-      //
+      //create : (buildContext context){retrurn CounterCubit}
       create: (context) => CounterCubit(),
-      child: BlocBuilder<CounterCubit, CounterState>(
-        builder: (BuildContext context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-              title: Text(title),
-            ),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text(
-                    'You have pushed the button this many times:',
-                  ),
-                  Text(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(title),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'You have pushed the button this many times:',
+              ),
+              BlocBuilder<CounterCubit, CounterState>(
+                builder: (context, state) {
+                  return Text(
                     state.count.toString(),
                     style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                ],
+                  );
+                },
               ),
-            ),
-            floatingActionButton: FloatingActionButton(
+            ],
+          ),
+        ),
+        floatingActionButton: BlocBuilder<CounterCubit, CounterState>(
+          builder: (context, state) {
+            return FloatingActionButton(
               onPressed: () => context.read<CounterCubit>().increment(),
               tooltip: 'Increment',
               child: const Icon(Icons.add),
-            ),
-            // This trailing comma makes auto-formatting nicer for build methods.
-          );
-        },
+            );
+          },
+        ),
+        // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }
