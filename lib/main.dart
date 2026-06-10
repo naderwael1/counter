@@ -61,6 +61,7 @@ class MyHomePage extends StatelessWidget {
         floatingActionButton: BlocBuilder<CounterCubit, CounterState>(
           builder: (context, state) {
             return FloatingActionButton(
+              backgroundColor: state.count >= 10 ? Colors.red : Colors.black26,
               onPressed: () => context.read<CounterCubit>().increment(),
               tooltip: 'Increment',
               child: const Icon(Icons.add),
