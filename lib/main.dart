@@ -60,11 +60,26 @@ class MyHomePage extends StatelessWidget {
         ),
         floatingActionButton: BlocBuilder<CounterCubit, CounterState>(
           builder: (context, state) {
-            return FloatingActionButton(
-              backgroundColor: state.count >= 10 ? Colors.red : Colors.black26,
-              onPressed: () => context.read<CounterCubit>().increment(),
-              tooltip: 'Increment',
-              child: const Icon(Icons.add),
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                FloatingActionButton(
+                  backgroundColor:
+                      state.count >= 10 ? Colors.red : Colors.black26,
+                  onPressed: () => context.read<CounterCubit>().increment(),
+                  tooltip: 'Increment',
+                  child: const Icon(Icons.add),
+                ),
+                const SizedBox(height: 15),
+                FloatingActionButton(
+                  backgroundColor: state.count >= 50
+                      ? const Color.fromARGB(255, 59, 56, 55)
+                      : const Color.fromARGB(66, 101, 223, 192),
+                  onPressed: () => context.read<CounterCubit>().decrement(),
+                  tooltip: 'Decrement',
+                  child: const Icon(Icons.dashboard),
+                ),
+              ],
             );
           },
         ),
