@@ -1,4 +1,5 @@
 import 'package:counter/bloc/counter_event.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 part 'counter_state.dart';
