@@ -1,6 +1,7 @@
+import 'package:counter/bloc/counter_bloc.dart';
+import 'package:counter/bloc/counter_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'cubit/counter_cubit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +35,7 @@ class MyHomePage extends StatelessWidget {
     //exitst return scaffold from widget build ==> wrap scafoold by blocBuilder and give it parametar
     return BlocProvider(
       //create : (buildContext context){retrurn CounterCubit}
-      create: (context) => CounterCubit(),
+      create: (context) => CounterBloc(),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -47,7 +48,7 @@ class MyHomePage extends StatelessWidget {
               const Text(
                 'You have pushed the button this many times:',
               ),
-              BlocBuilder<CounterCubit, CounterState>(
+              BlocBuilder<CounterBloc, CounterState>(
                 builder: (context, state) {
                   return Text(
                     state.count.toString(),
@@ -58,7 +59,7 @@ class MyHomePage extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: BlocBuilder<CounterCubit, CounterState>(
+        floatingActionButton: BlocBuilder<CounterBloc, CounterState>(
           builder: (context, state) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -66,16 +67,18 @@ class MyHomePage extends StatelessWidget {
                 FloatingActionButton(
                   backgroundColor:
                       state.count >= 10 ? Colors.red : Colors.black26,
-                  onPressed: () => context.read<CounterCubit>().increment(),
+                  onPressed: () =>
+                      context.read<CounterBloc>().add(IncrementEvent()),
                   tooltip: 'Increment',
                   child: const Icon(Icons.add),
                 ),
                 const SizedBox(height: 15),
                 FloatingActionButton(
-                  backgroundColor: state.count >= 50
+                  backgroundColor: state.count >= 10
                       ? const Color.fromARGB(255, 59, 56, 55)
-                      : const Color.fromARGB(66, 101, 223, 192),
-                  onPressed: () => context.read<CounterCubit>().decrement(),
+                      : const Color.fromARGB(66, 177, 25, 38),
+                  onPressed: () =>
+                      context.read<CounterBloc>().add(DecrementEvent()),
                   tooltip: 'Decrement',
                   child: const Icon(Icons.dashboard),
                 ),

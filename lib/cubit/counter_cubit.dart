@@ -6,7 +6,7 @@ part 'counter_state.dart';
 
 class CounterCubit extends Cubit<CounterState> {
   //CounterCubit() : super(CounterInitial()); take no parameters and the initial state is CounterInitial"
-  CounterCubit() : super(CounterInitial());
+  CounterCubit() : super(const CounterInitial());
   void increment() {
     emit(CounterUpdate(state.count + 1));
   }
